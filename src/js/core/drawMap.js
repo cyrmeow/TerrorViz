@@ -84,21 +84,27 @@ function drawMap(margin,projection){
               .attr("r", 3)
               .style("fill", function(d){
                 	if(d.weaptype1_txt == "Biological"){
+                        // return "#ff9900";
                 		return "blue";
                 	}
                 	else if(d.weaptype1_txt  == "Chemical"){
+                        // return "#a6325a";
                 		return "orange";
                 	}
                 	else if(d.weaptype1_txt  == "Explosives/Bombs/Dynamite"){
                 		return "green";
+                        // return "#48a7c2";
                 	}
                 	else if(d.weaptype1_txt  == "Fake Weapons"){
+                        // return "#206fa1";
                 		return "red";
                 	}
                 	else if(d.weaptype1_txt  == "Fire Arms"){
                 		return "purple";
+                        // return "#b1c914";
                 	}
                 	else if(d.weaptype1_txt  == "Incendiary"){
+                        // return "#FFEFBF";
                 		return "brown";
                 	}
                 	else if(d.weaptype1_txt  == "Melee"){
@@ -109,6 +115,7 @@ function drawMap(margin,projection){
                 		return "#728C00";
                 	}
                 	else {
+                        // return "#C7F2E7";
                 		return "grey";
                 	}
                 })
@@ -146,17 +153,6 @@ function drawMap(margin,projection){
 });
 
     // zoom and pan
-// var zoom = d3.zoom()
-//     .on("zoom",function() {
-//         console.log(d3.event.pageX);
-//         g.attr("transform","translate(" +
-//             d3.event.translate.join(",")+")" + " scale("+d3.event.scale+")");
-//         g.selectAll("circle")
-//             .attr("d", path.projection(projection));
-//         g.selectAll("path")
-//             .attr("d", path.projection(projection));
-//
-//   });
     var zoom = d3.zoom()
         .on("zoom", zoomed);
     function zoomed() {

@@ -10,9 +10,6 @@ function drawPanel(firstLoad){
 	if(firstLoad){
 	view = "View By Attack Type";
 	myyear = 1971;
-	// d3.select('.panel-body')
-	// 	.append("svg")
-	// 	.attr({'width':350,'height':220})
 	}
 
 	document.getElementById("panel-head").innerHTML = "Year " + myyear + " | " + view;
@@ -112,28 +109,35 @@ d3.selectAll(".loc")
         }
 
             	if(catName == viewCatsData[0]){
+        			// return "#ff9900";
             		return "blue";
             	}
             	if(catName == viewCatsData[1]){
+                    // return "#a6325a";
             		return "orange";
             	}
             	if(catName == viewCatsData[2]){
             		return "green";
+                    // return "#48a7c2";
             	}
             	if(catName == viewCatsData[3]){
             		return "red";
+                    // return "#206fa1";
             	}
             	if(catName == viewCatsData[4]){
-            		return "purple";
+            		return "purple"
+                    // return "#b1c914";
             	}
             	if(catName == viewCatsData[5]){
             		return "brown";
+                    // return "#FFEFBF";
             	}
             	if(catName == viewCatsData[6]){
             		return "pink";
             	}
             	if(catName== viewCatsData[7]){
             		return "grey";
+                    // return "#C7F2E7";
             	}
       });
 
@@ -200,8 +204,8 @@ d3.selectAll(".loc")
 
     var transit = d3.select(".panel-body").select("svg").selectAll("rect")
                 .data(totalsForEachCategory)
-                .transition()
-                .duration(1000) 
+                // .transition()
+                // .duration(1000)
                 .attr("width", function(d) {return xscale(d); });
 
     var transitext = d3.select(".panel-body").select("svg").select('#bars')

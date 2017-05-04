@@ -1,10 +1,8 @@
 /********************************************************************************************\
 Description: Function to draw the header bar chart displaying total attacks for each year.
-Author: Poushali Banerjee
-Update: Feb 1, 2016
 /*******************************************************************************************/
 
-function drawTotalKill(){
+function drawTotalAttacks(){
 
     var margin = {top: 10, right: 20, bottom: 10, left: 40},
     width = 910 - margin.left - margin.right,
@@ -19,12 +17,20 @@ function drawTotalKill(){
     .domain([470, 16840])
     .range([5, height]);
 
-    var totalCanvas = d3.select(".page-header").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
+    var svg = d3.select(".page-header").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+
+    // var textbox = svg
+    //     .append("text")
+    //     .text("Attack")
+    //     .attr("font-family", "sans-serif")
+    //     .attr("font-size", "20px")
+    //     .attr("fill", "red");
+
+    var totalCanvas = svg
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
 
     d3.csv("data/totals.csv", function(error, data) {
 
@@ -33,7 +39,7 @@ function drawTotalKill(){
     .data(data)
     .enter()
     .append("rect")
-    .style("fill", "#E95151")
+    .style("fill", "#242478")
     .attr("x", function(d) { return x(d.Year) + 90; })
     .attr("width", 10)
     .attr("y", function(d) { return height - y(d.Totals - 40); })
@@ -42,7 +48,7 @@ function drawTotalKill(){
       
           var coordinates = [0, 0];
           coordinates = d3.mouse(this);   // Get the mouse positions to show tooltip at.
-            
+          // console.log(coordinates);
           var xPosition = coordinates[0];
           var yPosition = coordinates[1];
            

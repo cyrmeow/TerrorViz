@@ -1,0 +1,336 @@
+{
+ "name": "Attack",
+ "children": [
+  {
+   "name": "Citizens",
+   "children": [
+    {
+     "name": "Armed Assault",
+     "children": [
+      {"name": "Firearm", "size": 7805},
+      {"name": "Explosives", "size": 210},
+      {"name": "Knife", "size": 698},
+      {"name": "Incendiary", "size": 703},
+	  {"name": "Other", "size": 79}
+     ]
+    },
+    {
+     "name": "Assassination",
+     "children": [
+      {"name": "Firearm", "size": 2851},
+      {"name": "Explosives", "size": 306},
+      {"name": "Knife", "size": 338},
+      {"name": "Incendiary", "size": 37},
+	  {"name": "Other", "size": 412}
+     ]
+    },
+    {
+     "name": "Bombing",
+     "children": [
+      {"name": "Firearm", "size": 108},
+      {"name": "Explosives", "size": 16492},
+      {"name": "Knife", "size": 40},
+      {"name": "Incendiary", "size": 35},
+	  {"name": "Other", "size": 45}
+     ]
+    },
+    {
+     "name": "Hijacking",
+     "children": [
+      {"name": "Firearm", "size": 1555},
+      {"name": "Explosives", "size": 46},
+      {"name": "Knife", "size": 256},
+      {"name": "Incendiary", "size": 64},
+	  {"name": "Other", "size": 1406}
+     ]
+    },
+    {
+     "name": "Facility Attack",
+     "children": [
+      {"name": "Firearm", "size": 700},
+      {"name": "Explosives", "size": 700},
+      {"name": "Knife", "size": 226},
+      {"name": "Incendiary", "size": 978},
+	  {"name": "Other", "size": 208}
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Utilities",
+   "children": [
+    {
+     "name": "Armed Assault",
+     "children": [
+      {"name": "Firearm", "size": 3890},
+      {"name": "Explosives", "size": 110},
+      {"name": "Knife", "size": 160},
+      {"name": "Incendiary", "size": 746},
+	  {"name": "Other", "size": 29}
+     ]
+    },
+    {
+     "name": "Assassination",
+     "children": [
+      {"name": "Firearm", "size": 2151},
+      {"name": "Explosives", "size": 360},
+      {"name": "Knife", "size": 145},
+      {"name": "Incendiary", "size": 17},
+	  {"name": "Other", "size": 266}
+     ]
+    },
+    {
+     "name": "Bombing",
+     "children": [
+      {"name": "Firearm", "size": 180},
+      {"name": "Explosives", "size": 20290},
+      {"name": "Knife", "size": 53},
+      {"name": "Incendiary", "size": 40},
+	  {"name": "Other", "size": 53}
+     ]
+    },
+    {
+     "name": "Hijacking",
+     "children": [
+      {"name": "Firearm", "size": 1203},
+      {"name": "Explosives", "size": 114},
+      {"name": "Knife", "size": 84},
+      {"name": "Incendiary", "size": 43},
+	  {"name": "Other", "size": 1018}
+     ]
+    },
+    {
+     "name": "Facility Attack",
+     "children": [
+      {"name": "Firearm", "size": 250},
+      {"name": "Explosives", "size": 57},
+      {"name": "Knife", "size": 141},
+      {"name": "Incendiary", "size": 2243},
+	  {"name": "Other", "size": 1200}
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Government",
+   "children": [
+    {
+     "name": "Armed Assault",
+     "children": [
+      {"name": "Firearm", "size": 3296},
+      {"name": "Explosives", "size": 114},
+      {"name": "Knife", "size": 73},
+      {"name": "Incendiary", "size": 185},
+	  {"name": "Other", "size": 15}
+     ]
+    },
+    {
+     "name": "Assassination",
+     "children": [
+      {"name": "Firearm", "size": 3779},
+      {"name": "Explosives", "size": 1244},
+      {"name": "Knife", "size": 113},
+      {"name": "Incendiary", "size": 50},
+	  {"name": "Other", "size":393}
+     ]
+    },
+    {
+     "name": "Bombing",
+     "children": [
+      {"name": "Firearm", "size": 68},
+      {"name": "Explosives", "size": 9037},
+      {"name": "Knife", "size": 53},
+      {"name": "Incendiary", "size": 56},
+	  {"name": "Other", "size":53}
+     ]
+    },
+    {
+     "name": "Hijacking",
+     "children": [
+      {"name": "Firearm", "size": 949},
+      {"name": "Explosives", "size": 44},
+      {"name": "Knife", "size": 41},
+      {"name": "Incendiary", "size": 34},
+	  {"name": "Other", "size":800}
+     ]
+    },
+    {
+     "name": "Facility Attack",
+     "children": [
+      {"name": "Firearm", "size": 161},
+      {"name": "Explosives", "size": 58},
+      {"name": "Knife", "size": 101},
+      {"name": "Incendiary", "size": 1217},
+	  {"name": "Other", "size":650}
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Police",
+   "children": [
+    {
+     "name": "Armed Assault",
+     "children": [
+      {"name": "Firearm", "size": 6997},
+      {"name": "Explosives", "size": 379},
+      {"name": "Knife", "size": 131},
+      {"name": "Incendiary", "size": 153},
+	  {"name": "Other", "size":25}
+     ]
+    },
+    {
+     "name": "Assassination",
+     "children": [
+      {"name": "Firearm", "size": 1956},
+      {"name": "Explosives", "size": 460},
+      {"name": "Knife", "size": 57},
+      {"name": "Incendiary", "size": 58},
+	  {"name": "Other", "size":157}
+     ]
+    },
+    {
+     "name": "Bombing",
+     "children": [
+      {"name": "Firearm", "size": 180},
+      {"name": "Explosives", "size": 8609},
+      {"name": "Knife", "size": 16},
+      {"name": "Incendiary", "size": 17},
+	  {"name": "Other", "size":17}
+     ]
+    },
+    {
+     "name": "Hijacking",
+     "children": [
+      {"name": "Firearm", "size": 326},
+      {"name": "Explosives", "size": 35},
+      {"name": "Knife", "size": 41},
+      {"name": "Incendiary", "size": 13},
+	  {"name": "Other", "size":206}
+     ]
+    },
+    {
+     "name": "Facility Attack",
+     "children": [
+      {"name": "Firearm", "size": 92},
+      {"name": "Explosives", "size": 32},
+      {"name": "Knife", "size": 38},
+      {"name": "Incendiary", "size": 299},
+	  {"name": "Other", "size":950}
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Military",
+   "children": [
+    {
+     "name": "Armed Assault",
+     "children": [
+      {"name": "Firearm", "size": 8671},
+      {"name": "Explosives", "size": 663},
+      {"name": "Knife", "size": 104},
+      {"name": "Incendiary", "size": 137},
+	  {"name": "Other", "size":24}
+     ]
+    },
+    {
+     "name": "Assassination",
+     "children": [
+      {"name": "Firearm", "size": 1072},
+      {"name": "Explosives", "size": 248},
+      {"name": "Knife", "size": 41},
+      {"name": "Incendiary", "size": 18},
+	  {"name": "Other", "size":100}
+     ]
+    },
+    {
+     "name": "Bombing",
+     "children": [
+      {"name": "Firearm", "size": 139},
+      {"name": "Explosives", "size": 9200},
+      {"name": "Knife", "size": 72},
+      {"name": "Incendiary", "size": 23},
+	  {"name": "Other", "size":19}
+     ]
+    },
+    {
+     "name": "Hijacking",
+     "children": [
+      {"name": "Firearm", "size": 303},
+      {"name": "Explosives", "size": 53},
+      {"name": "Knife", "size": 27},
+      {"name": "Incendiary", "size": 27},
+	  {"name": "Other", "size":200}
+     ]
+    },
+    {
+     "name": "Facility Attack",
+     "children": [
+      {"name": "Firearm", "size": 86},
+      {"name": "Explosives", "size": 71},
+      {"name": "Knife", "size": 41},
+      {"name": "Incendiary", "size": 185},
+	  {"name": "Other", "size":1400}
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Business",
+   "children": [
+    {
+     "name": "Armed Assault",
+     "children": [
+      {"name": "Firearm", "size": 1847},
+      {"name": "Explosives", "size": 58},
+      {"name": "Knife", "size": 39},
+      {"name": "Incendiary", "size": 196},
+	  {"name": "Other", "size":17}
+     ]
+    },
+    {
+     "name": "Assassination",
+     "children": [
+      {"name": "Firearm", "size": 712},
+      {"name": "Explosives", "size": 88},
+      {"name": "Knife", "size": 47},
+      {"name": "Incendiary", "size": 16},
+	  {"name": "Other", "size":90}
+     ]
+    },
+    {
+     "name": "Bombing",
+     "children": [
+      {"name": "Firearm", "size": 82},
+      {"name": "Explosives", "size": 10849},
+      {"name": "Knife", "size": 28},
+      {"name": "Incendiary", "size": 42},
+	  {"name": "Other", "size":70}
+     ]
+    },
+    {
+     "name": "Hijacking",
+     "children": [
+      {"name": "Firearm", "size": 746},
+      {"name": "Explosives", "size": 37},
+      {"name": "Knife", "size": 17},
+      {"name": "Incendiary", "size": 22},
+	  {"name": "Other", "size":796}
+     ]
+    },
+    {
+     "name": "Facility Attack",
+     "children": [
+      {"name": "Firearm", "size": 200},
+      {"name": "Explosives", "size": 24},
+      {"name": "Knife", "size": 53},
+      {"name": "Incendiary", "size": 2776},
+	  {"name": "Other", "size":30}
+     ]
+    }
+   ]
+  }
+  ]   
+}
+ 

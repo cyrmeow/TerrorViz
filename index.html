@@ -40,7 +40,20 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#">Visualizing Global Terrorism over the years with D3</a>
+					<!--<a class="navbar-brand" href="#">Global Terrorism Visualization </a>-->
+					<div id="navbar" class="navbar-collapse collapse">
+						<ul class="nav navbar-nav">
+							<li class="active"><a href="#">Home</a></li>
+							<li><a href="Trend.html">Trend</a></li>
+							<li><a href="percentage.html">Percentage</a></li>
+						</ul>
+						<!--<ul class="nav navbar-nav navbar-right">-->
+							<!--<li class="active"><a href="./">Default <span class="sr-only">(current)</span></a></li>-->
+							<!--<li><a href="../navbar-static-top/">Static top</a></li>-->
+							<!--<li><a href="../navbar-fixed-top/">Fixed top</a></li>-->
+						<!--</ul>-->
+					</div><!--/.nav-collapse -->
+					<!--<a class="navbar-brand" href="www.google.com">Google</a>-->
 				</div>
 			</div>
 			<!-- /.container-fluid -->
@@ -48,57 +61,44 @@
 		<!-- /.navbar -->
 
 		<!-- Page Content -->
+
 		<div class="container-fluid">
 
 				<div class="row">
-				<div class="col-sm-8">				
-
+				<div class="col-sm-12">
+					<h1>Global Terrorism Visualization <a href="http://slides.com/zihaowang-1/deck-2/fullscreen">[Slides]</a></h1>
 					<!-- Comments -->
-					<h3>Introduction</h3>
+
 					<div class="well">
+						<h2>Introduction</h2>
+
 						<div class="media">
 							<div class="media-body">
-								<h4 class="margin-t-0">Author: Yiran Cao</a></h4>
-								<p>1. Move the slider to display information for a particular year. The attacks for that year are projected onto the map by latitude and longitude values. A breakdown of the attacks by different categories is displayed on the side. * Year 1993 is a special case. GTD contains no data for this year.</p>
-								<p>2. View attacks from different perspectives: select a different view from the dropdown. You can view the attacks by their attack type, the kind of weapons used and the type of targets. I am also working on a few more perspectives of the data which will be available soon.</p>
+
+								<h4 class="margin-t-0">Group Member: Yiran Cao, Jiaqi Zhang, Zihao Wang</a></h4>
+								<h4>Source code and data is available <a href="web.cse.ohio-state.edu/~cao.805/5544/TerrorViz.zip">here</a> </h4>
+								<p>1. Move the slider to display information for a particular year. The attacks for that
+									year are projected onto the map by latitude and longitude values. </p>
+								<p>2. View attacks from different perspectives: select a different view from the
+									dropdown. You can view the attacks by their attack type, the kind of weapons used
+									and the type of targets. </p>
 								<p>3. Zoom and pan the map for better viewing. Hover for tooltips.</p>
+								<p>4. Click on the play/pause button to trigger auto-play</p>
 
-								<p>A note about Missing data: </p>
-								</p>Some attacks are missing their latitude and longitude values in the data from GTD. As a result it is not possible to project the location of these attacks on the map. However, the breakdown on the side panel includes this data. I have considered them in order to provide more accurate breakdown. This will therefore cause a difference in the total number of attacks as viewed on the right side panel vs those projected on the map. I am working on collecting location data about these attacks and will update this visualization as they become available.</p>
+								<p>Missing data: </p>
+								</p>Some attacks are missing their latitude and longitude values in the data from GTD.
+								As a result it is not possible to project the location of these attacks on the map.</p>
 							</div>
 						</div>
 					</div>
 					<hr>
 				</div>
-				<div class="col-sm-4">				
-
-					<!-- Comments -->
-					<h3>Data Source</h3>
-					<div class="well">
-						<div class="media">
-							<div class="media-body">
-								<h4 class="margin-t-0"><a href="http://www.start.umd.edu/gtd/" target="_blank">Global Terrorism Database</a></h4>
-								<p><a href="http://www.start.umd.edu/gtd/" target="_blank">http://www.start.umd.edu/gtd/</a></p>
-								<p>The Global Terrorism Database (GTD) is an open-source database including information on terrorist events around the world from 1970-2014.</p>
-								<p>The National Consortium for the Study of Terrorism and Responses to Terrorism (START) makes the GTD available via this online interface in an effort to increase understanding of terrorist violence so that it can be more readily studied and defeated.</p>
-
-								<h4 class="margin-t-0"><a href="http://www.naturalearthdata.com/">Natural Earth</a></h4>
-								<p><a href="http://www.naturalearthdata.com/">http://www.naturalearthdata.com/</a></p>
-								<p>The map and its projections are drawn using data from Natural Earth. A public domain map dataset featuring tightly integrated vector and raster data.</p>
-							</div>
-						</div>
-						<a name="startviz"></a>
-					</div>
-					<hr>
-					
-				</div>
-
 			</div>
 			<div class="row">
 				<div class="col-sm-12">
 					<div class="page-header">
 						   <div id="tooltip4"  class="hidden"> </div>
-					</div>			    
+					</div>
 				</div>
 			</div>
 
@@ -116,6 +116,9 @@
 				</div>
 				<div class="col-sm-4">
 					    <ul class="nav nav-pills">
+							<button type="button" class="btn btn-default">
+								<span id="playPause" class="glyphicon glyphicon-play" aria-hidden="true"></span>
+							</button>
 					    	<div class="btn-group">
 							  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							    Change Data View <span class="caret"></span>
@@ -169,6 +172,8 @@
 		<script type="text/javascript" src="src/js/core/drawBrush.js"></script>
 		<script type="text/javascript" src="src/js/core/drawHeaderChart.js"></script>
 		<script type="text/javascript" src="src/js/core/drawPanel.js"></script>
+		<script type="text/javascript" src="src/js/core/drawTotalDeaths.js"></script>
+		<script type="text/javascript" src="src/js/core/autoPlay.js"></script>
 		<script>
 
 			var view;

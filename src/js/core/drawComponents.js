@@ -19,9 +19,13 @@ function drawComponents(){
 
 
 
-	drawTotalKill();  
+	drawTotalAttacks();
+
 	drawMap(margin,projection);
 	drawBrush(projection,margin, width,height);
+    drawTotalDeaths();
+    autoPlay();
+
 	
 }
 

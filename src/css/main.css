@@ -119,6 +119,24 @@ path {
         pointer-events: none;
         font-size: 14px;
 }
+
+#tooltip5 {
+    position: absolute;
+    width: auto;
+    height: auto;
+    padding: 9px;
+    /*background-color: white;
+    color:white;*/
+    background-color: white;
+    webkit-border-radius: 9px;
+    -moz-border-radius: 9px;
+    border-radius: 9px;
+    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+    font-size: 14px;
+}
     
 #tooltip.hidden {
         display: none;
@@ -134,8 +152,11 @@ path {
 
    #tooltip4.hidden {
         display: none;
-}    
-   
+}
+   #tooltip5.hidden {
+    display: none;
+}
+
 
 
 #chart{
