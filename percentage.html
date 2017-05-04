@@ -1,0 +1,444 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Global Terrorism Visualization</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="D3 Visualization" lang="en" content="Visualization for Global Terrorism with D3">
+        <meta name="Yiran Cao" content="">
+        <meta name="robots" content="index, follow">
+
+        <!-- icons -->
+        <!-- <link rel="shortcut icon" href="favicon.ico"> -->
+
+        <!-- Bootstrap Core CSS file -->
+        <link rel="stylesheet" href="src/css/bootstrap.min.css">
+
+        <!-- CSS rules -->
+        <link rel="stylesheet" href="src/css/styles.css">
+        <link rel="stylesheet" href="src/css/main.css">
+
+        <!-- Conditional comment containing JS files for IE6 - 8 -->
+        <!--[if lt IE 9]>
+        <script src="assets/js/html5.js"></script>
+        <script src="assets/js/respond.min.js"></script>
+        <![endif]-->
+    </head>
+<meta charset="utf-8">
+<style>
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: auto;
+  position: relative;
+  width: 1000px;
+}
+
+form {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+</style>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+    <div class="container-fluid">
+
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!--<a class="navbar-brand" href="#">Global Terrorism Visualization </a>-->
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="Trend.html">Trend</a></li>
+                    <li class="active"><a href="percentage.html">Percentage</a></li>
+                </ul>
+                <!--<ul class="nav navbar-nav navbar-right">-->
+                <!--<li class="active"><a href="./">Default <span class="sr-only">(current)</span></a></li>-->
+                <!--<li><a href="../navbar-static-top/">Static top</a></li>-->
+                <!--<li><a href="../navbar-fixed-top/">Fixed top</a></li>-->
+                <!--</ul>-->
+            </div><!--/.nav-collapse -->
+            <!--<a class="navbar-brand" href="www.google.com">Google</a>-->
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+<!-- /.navbar -->
+
+<font size="12px" id="sunburst" style="padding-left:80px" ><strong>Terrorist Attack Analysis</strong></font>
+<br/>
+<br/>
+<br/>
+<br/>
+<div class="gallery" id="control">
+  <button class="first" id="size">Size</button>
+  <button class="last active" id="count">Count</button>
+</div>
+<br/>
+<br/>
+<div id="main">
+      <div id="sequence"></div>
+      <div id="chart">
+        <div id="explanation" style="visibility: hidden;">
+          <span id="percentage"></span><br/>
+        </div>
+      </div>
+</div>
+<link href="src/css/button.css" rel="stylesheet" type="text/css" />
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<h3 style="position:absolute;left:700px;top:350px" ><font color="#3399ff">From the visualization of data records over 45 years, we have some significant findings:</font></h3>
+<h3 style="position:absolute;left:700px;top:500px" ><font color="#ff0000">(1)Citizens and Utilities are the most vulnerable targets for terrorist attack</font></h3>
+<h3 style="position:absolute;left:700px;top:600px" ><font color="#ff0000">(2)Bombing is the most common attack type and Armed Assault via Firearm is the second</font></h3>
+<script>
+
+var width =  700,
+	width2 = 500,
+    height = 600,
+    radius = 280,
+    color = d3.scale.category20();
+	
+var b = {
+  w: 75, h: 30, s: 3, t: 10
+};
+	
+var x = d3.scale.linear()
+    .range([0, 2 * Math.PI]);
+
+var y = d3.scale.linear()
+    .range([0, radius]);
+	
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+  .append("g")
+    .attr("transform", "translate(" + width/2 + "," + height * .52 + ")");
+	
+var svg2 = d3.select("body").append("svg")
+    .attr("width", width2)
+    .attr("height", height)
+  .append("g")
+    .attr("transform", "translate(" + 0 + "," + 0 + ")");
+
+var partition = d3.layout.partition()
+    .sort(null)
+    //.size([2 * Math.PI, radius * radius])
+    .value(function(d) { return d.size; });
+	
+var arc = d3.svg.arc()
+    .startAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x))); })
+    .endAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x + d.dx))); })
+    .innerRadius(function(d) { return Math.max(0, y(d.y)); })
+    .outerRadius(function(d) { return Math.max(0, y(d.y + d.dy)); });
+
+
+	
+// Keep track of selected node
+var node;
+var currAngle = 0;
+
+d3.json("data/data.json", function(error, root) {
+  if (error) throw error;
+  
+  node = root;
+  
+  var gc = svg.datum(root).selectAll("g")
+			.data(partition.nodes)
+			.enter().append("g");
+  
+  var path = gc.append("path")
+      //.attr("display", function(d) { return d.depth ? null : "none"; }) // hide inner ring
+      .attr("d", arc)
+      .style("stroke", "#fff")
+      .style("fill", function(d) { return color((d.children ? d : d.parent).name); })
+      .style("fill-rule", "evenodd")
+	  .on("click", click)
+      .each(stash);
+	  
+  var text = gc.append("text")		
+		.style("font-size", function(d) { return d.depth ? Math.min(d.dx * 900 * 900/Math.pow((d.depth-node.depth+1), .1),18/Math.pow((d.depth-node.depth+1), .6)) + "px" : (18 + "px") })
+		.attr("transform", function(d) { return "rotate(" + computeTextRotation(d) + ")"; })
+		.attr("x", function(d) { return y(d.y); })
+		.attr("dx", "6") // margin
+		.attr("dy", ".35em") // vertical-align
+		.on("mouseover", mouseover)
+	    .on("mouseleave", mouseleave)
+		.text(function(d) { return d.name; });
+
+
+		
+
+
+  d3.select("#size").on("click", function () {
+    var value = this.id === "size"
+        ? function(d) { return d.size; }
+        : function() { return 1; };
+
+    path
+        .data(partition.value(value).nodes)
+        .transition()
+        .duration(1500)
+        .attrTween("d", arcTweenData);
+		
+		
+	text
+		.data(partition.value(value).nodes)
+	    .transition()
+        .duration(1500)
+		.attr("transform", function(d) { return "rotate(" + computeTextRotation(d) + ")"; })
+  });
+
+ 
+  d3.select("#count").on("click", function () {
+    var value = this.id === "count"
+        ? function() { return 1; }
+        : function(d) { return d.size; };
+
+    path
+        .data(partition.value(value).nodes)
+      .transition()
+        .duration(1500)
+        .attrTween("d", arcTweenData);
+		
+		
+	text
+		.data(partition.value(value).nodes)
+	  .transition()
+        .duration(1500)
+		.attr("transform", function(d) { return "rotate(" + computeTextRotation(d) + ")"; })
+  });
+  
+var totalSize = 0; 
+totalSize = path.node().__data__.value;
+
+initializeBreadcrumbTrail();
+
+
+function mouseover(d) {
+
+  var percentage = (100 * d.value / totalSize).toPrecision(3);
+  var percentageString = percentage + "%";
+  if (percentage < 0.1) {
+    percentageString = "< 0.1%";
+  }
+
+
+  var sequenceArray = getAncestors(d);
+  updateBreadcrumbs(sequenceArray, percentageString);
+
+  // Fade all the segments.
+  d3.selectAll("path")
+      .style("opacity", 0.3);
+
+  // Then highlight only those that are an ancestor of the current segment.
+  gc.selectAll("path")
+      .filter(function(node) {
+                return (sequenceArray.indexOf(node) >= 0);
+              })
+      .style("opacity", 1);
+}
+
+
+function mouseleave(d) {
+
+  // Hide the breadcrumb trail
+  d3.select("#trail")
+      .style("visibility", "hidden");
+
+  // Deactivate all segments during transition.
+  d3.selectAll("path").on("mouseover", null);
+
+  // Transition each segment to full opacity and then reactivate it.
+  d3.selectAll("path")
+      .transition()
+      .duration(1000)
+      .style("opacity", 1)
+      .each("end", function() {
+              d3.select(this).on("mouseover", mouseover);
+            });
+
+  d3.select("#explanation")
+      .transition()
+      .duration(1000)
+      .style("visibility", "hidden");
+}
+
+// Given a node in a partition layout, return an array of all of its ancestor
+// nodes, highest first, but excluding the root.
+function getAncestors(node) {
+  var path = [];
+  var current = node;
+  while (current.parent) {
+    path.unshift(current);
+    current = current.parent;
+  }
+  return path;
+}
+
+function initializeBreadcrumbTrail() {
+  // Add the svg area.
+  var trail = d3.select("#sequence").append("svg:svg")
+      .attr("width", width)
+      .attr("height", 30)
+      .attr("id", "trail");
+  // Add the label at the end, for the percentage.
+  trail.append("svg:text")
+    .attr("id", "endlabel")
+    .style("fill", "#66ccff");
+}
+
+// Generate a string that describes the points of a breadcrumb polygon.
+function breadcrumbPoints(d, i) {
+  var points = [];
+  points.push("0,0");
+  points.push(b.w + ",0");
+  points.push(b.w + b.t + "," + (b.h ));
+  points.push(b.w + "," + b.h);
+  points.push("0," + b.h);
+  if (i > 0) { // Leftmost breadcrumb; don't include 6th vertex.
+    points.push(b.t + "," + (b.h ));
+  }
+  return points.join(" ");
+}
+
+// Update the breadcrumb trail to show the current sequence and percentage.
+function updateBreadcrumbs(nodeArray, percentageString) {
+
+  // Data join; key function combines name and depth (= position in sequence).
+  var g = d3.select("#trail")
+      .selectAll("g")
+      .data(nodeArray, function(d) { return d.name + d.depth; });
+
+  // Add breadcrumb and label for entering nodes.
+  var entering = g.enter().append("svg:g");
+
+  entering.append("svg:polygon")
+      .attr("points", breadcrumbPoints)
+      .style("fill", function(d) { return color(d.name); });
+
+  entering.append("svg:text")
+      .attr("x", (b.w + b.t) / 2)
+      .attr("y", b.h / 2)
+      .attr("dy", "0.35em")
+      .attr("text-anchor", "middle")
+      .text(function(d) { return d.name; });
+
+  // Set position for entering and updating nodes.
+  g.attr("transform", function(d, i) {
+    return "translate(" + i * (b.w + b.s) + ", 0)";
+  });
+
+  // Remove exiting nodes.
+  g.exit().remove();
+
+  // Now move and update the percentage at the end.
+  d3.select("#trail").select("#endlabel")
+      .attr("x", (nodeArray.length + 0.5) * (b.w + b.s))
+      .attr("y", b.h / 2)
+      .attr("dy", "0.35em")
+      .attr("text-anchor", "middle")
+      .text(percentageString);
+
+  // Make the breadcrumb trail visible, if it's hidden.
+  d3.select("#trail")
+      .style("visibility", "");
+
+}
+
+
+
+  
+	function click(d){
+	if(node == d)
+		return;
+	else
+		node = d;
+
+	text.transition()
+		.duration(500)
+		.attr("opacity", 0);
+
+	path.transition()
+		.duration(1000)
+		.attrTween("d", arcTweenZoom(d))
+		.each("end", function(e, i){
+			if(e.x >= d.x && e.x < (d.x +d.dx)){
+				var tx = d3.select(this.parentNode).select("text");
+				tx.transition()
+					.duration(450)
+		.style("font-size", function(d) { return d.depth ? Math.min(d.dx * 900 * 900/Math.pow((d.depth-node.depth+1), .1),24/Math.pow((d.depth-node.depth+1), .6)) + "px" : (24 + "px") })
+					.attr("x", function(d) { return y(d.y); })
+					.attr("transform", function(d) { return "rotate(" + computeTextRotation(d) + ")"; })
+				tx.transition()
+					.duration(50)
+		.style("font-size", function(d) { return d.depth ? Math.min(d.dx * 900 * 900/Math.pow((d.depth-node.depth+1), .1),24/Math.pow((d.depth-node.depth+1), .6)) + "px" : (24 + "px") })
+					.attr("x", function(d) { return y(d.y); })
+					.attr("transform", function(d) { return "rotate(" + computeTextRotation(d) + ")"; })
+					.attr("opacity", 1);
+			}
+		});
+	}
+});
+
+d3.select(self.frameElement).style("height", height + "px");
+
+// Stash the old values for transition.
+function stash(d) {
+  d.x0 = d.x;
+  d.dx0 = d.dx;
+}
+
+// When switching data: interpolate the arcs in data space.
+function arcTweenData(a, i) {
+  var oi = d3.interpolate({x: a.x0, dx: a.dx0}, a);
+  function tween(t) {
+    var b = oi(t);
+    a.x0 = b.x;
+    a.dx0 = b.dx;
+    return arc(b);
+  }
+  if (i == 0) {
+   // If we are on the first arc, adjust the x domain to match the root node
+   // at the current zoom level. (We only need to do this once.)
+    var xd = d3.interpolate(x.domain(), [node.x, node.x + node.dx]);
+    return function(t) {
+      x.domain(xd(t));
+      return tween(t);
+    };
+  } else {
+    return tween;
+  }
+}
+
+// When zooming: interpolate the scales.
+function arcTweenZoom(d) {
+  var xd = d3.interpolate(x.domain(), [d.x, d.x + d.dx]),
+      yd = d3.interpolate(y.domain(), [d.y, 1]),
+      yr = d3.interpolate(y.range(), [d.y ? 20 : 0, radius]);
+  return function(d, i) {
+    return i
+        ? function(t) { return arc(d); }
+        : function(t) { x.domain(xd(t)); y.domain(yd(t)).range(yr(t)); return arc(d); };
+  };
+}
+
+function computeTextRotation(d) {
+  //var a = x(d.x + d.dx/2) * 180 / Math.PI - 180;
+  if(!(d.depth-node.depth)) return (x(d.x + d.dx / 2) * 180) / Math.PI - 180;
+  return (x(d.x + d.dx / 2) * 180) / Math.PI - 90;
+  //return a;
+}
+
+</script>
+</body>
+</html>
