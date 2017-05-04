@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Global Terrorism Visualization</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="D3 Visualization" lang="en" content="Visualization for Global Terrorism with D3">
+		<meta name="Yiran Cao" content="">
+		<meta name="robots" content="index, follow">
+
+		<!-- icons -->
+		<!-- <link rel="shortcut icon" href="favicon.ico"> -->
+
+		<!-- Bootstrap Core CSS file -->
+		<link rel="stylesheet" href="src/css/bootstrap.min.css">
+
+		<!-- CSS rules -->
+		<link rel="stylesheet" href="src/css/styles.css">
+		<link rel="stylesheet" href="src/css/main.css">
+
+		<!-- Conditional comment containing JS files for IE6 - 8 -->
+		<!--[if lt IE 9]>
+		<script src="assets/js/html5.js"></script>
+		<script src="assets/js/respond.min.js"></script>
+		<![endif]-->
+
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/ >
+		<title>Trend Analysis of Terrorism</title>
+
+		<!-- Google fonts -->
+		<!--<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>-->
+		<!--<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>`-->
+
+		<!-- D3.js -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+    	<script src="src/d3/d3.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.21.0/d3-legend.min.js"></script>
+
+
+		<h1 style="text-align:center"> Deaths/Injured (1990-2015)</h1>
+
+		<style>
+			body {
+				/*font-family: 'Open Sans', sans-serif;*/
+				/*font-size: 11px;*/
+				/*font-weight: 300;*/
+				/*fill: #242424;*/
+				text-align: center;
+				/*text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;*/
+				cursor: default;
+			}
+
+			.legend {
+				font-family: 'Raleway', sans-serif;
+				fill: #333333;
+			}
+
+			.tooltip {
+				fill: #333333;
+			}
+		</style>
+
+	</head>
+
+
+
+	<body>
+	<!-- Navigation -->
+	<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+		<div class="container-fluid">
+
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<!--<a class="navbar-brand" href="#">Global Terrorism Visualization </a>-->
+				<div id="navbar" class="navbar-collapse collapse">
+					<ul class="nav navbar-nav">
+						<li><a href="index.html">Home</a></li>
+						<li class="active"><a href="Trend.html">Trend</a></li>
+						<li><a href="percentage.html">Percentage</a></li>
+					</ul>
+				</div><!--/.nav-collapse -->
+				<!--<a class="navbar-brand" href="www.google.com">Google</a>-->
+			</div>
+		</div>
+		<!-- /.container-fluid -->
+	</nav>
+	<!-- /.navbar -->
+		<div class="row">
+		<div class="col-sm-12">
+		<div>
+			<form>
+				<label><input type="radio" name="mode" value="DI" checked> Deaths/Injured</label>
+				<label><input type="radio" name="mode" value="Death"> TerroristGroups</label>
+			</form>
+		</div>
+		<div class="radarChart"></div>
+
+    <script src="src/js/core/radarChartDI.js"></script>
+		<script src="src/js/core/radarChart.js"></script>
+
+		<script>
+			//////////////////////////////////////////////////////////////
+			//////////////////////// Set-Up //////////////////////////////
+			//////////////////////////////////////////////////////////////
+
+			var margin = {top: 100, right: 100, bottom: 100, left: 100},
+				width = Math.min(800, window.innerWidth - 10) - margin.left - margin.right,
+				height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20);
+
+      showDI();
+
+
+      // Button activity
+			d3.selectAll("input")
+					.on("change", changed);
+
+			var timeout = d3.timeout(function() {
+				d3.select("input[value=\"Att\"]")
+						.property("checked", true)
+						.dispatch("change");
+			}, 1000000);
+
+			function changed() {
+				timeout.stop();
+				if (this.value === "DI") showDI();
+				if (this.value === "Death") showDeathGroup();
+			}
+
+			function showDI() {
+				console.log("Enter FI");
+				d3.select("h1").text("Deaths/Injured (1990-2015)");
+				d3.csv("data/TerrDamageInjured.csv", function (error, data) {
+					if(error) throw error;
+
+					TransDI = []
+			    data.forEach(function(d) {
+						d.Y1990 = +d.Y1990; d.Y1991 = +d.Y1991; d.Y1992 = +d.Y1992; d.Y1994 = +d.Y1994; d.Y1995 = +d.Y1995;
+						d.Y1996 = +d.Y1996; d.Y1997 = +d.Y1997; d.Y1998 = +d.Y1998; d.Y1999 = +d.Y1999; d.Y2000 = +d.Y2000; d.Y2001 = +d.Y2001;
+						d.Y2002 = +d.Y2002; d.Y2003 = +d.Y2003; d.Y2004 = +d.Y2004; d.Y2005 = +d.Y2005; d.Y2006 = +d.Y2006; d.Y2007 = +d.Y2007;
+						d.Y2008 = +d.Y2008; d.Y2009 = +d.Y2009;
+						d.Y2010 = +d.Y2010; d.Y2011 = +d.Y2011; d.Y2012 = +d.Y2012; d.Y2013 = +d.Y2013; d.Y2014 = +d.Y2014; d.Y2015 = +d.Y2015;
+
+						 TransDI.push([{"Year":1990, "value":d.Y1990},{"Year":1991, "value":d.Y1991},{"Year":1992, "value":d.Y1992},
+						 {"Year":1994, "value":d.Y1994},{"Year":1995, "value":d.Y1995},{"Year":1996, "value":d.Y1996},
+						 {"Year":1997, "value":d.Y1997},{"Year":1998, "value":d.Y1998},{"Year":1999, "value":d.Y1999},
+						 {"Year":2000, "value":d.Y2000},{"Year":2001, "value":d.Y2001},{"Year":2002, "value":d.Y2002},
+						 {"Year":2003, "value":d.Y2003},{"Year":2004, "value":d.Y2004},{"Year":2005, "value":d.Y2005},
+						 {"Year":2006, "value":d.Y2006},{"Year":2007, "value":d.Y2007},{"Year":2008, "value":d.Y2008},
+						 {"Year":2009, "value":d.Y2009},{"Year":2010, "value":d.Y2010},{"Year":2011, "value":d.Y2011},
+						 {"Year":2012, "value":d.Y2012},{"Year":2013, "value":d.Y2013},{"Year":2014, "value":d.Y2014},
+						 {"Year":2015, "value":d.Y2015}]);
+						 //console.log(i);
+			     });
+
+					//  var Trans = d3.nest().key(function(d) { console.log(d);return d.Y2010; })
+					//      .rollup(function(d) { console.log(d); return d.Y2011; })
+	        //      .entries(data);
+
+					 console.log(data[0]);
+					 console.log(TransDI);
+					 //console.log(data[0].Y2010);
+					 //console.log(d3.max(data, function(i){return d3.max([i.Y2010,i.Y2011,i.Y2012,i.Y2013,i.Y2014,i.Y2015])}));
+
+		 			var color = d3.scale.ordinal()
+		 				.range(["#FF0000","#FFBBFF"]);
+
+		 			var radarChartOptions = {
+		 			  w: width,
+		 			  h: height,
+		 			  margin: margin,
+		 			  maxValue: 0.5,
+		 			  levels: 5,
+		 			  roundStrokes: true,
+		 			  color: color
+		 			};
+		 			//Call function to draw the Radar chart
+		 			RadarChartDI(".radarChart", TransDI, radarChartOptions);
+
+				});
+			}
+
+			function showDeathGroup() {
+				d3.select("h1").text("Deadliest Terrorist Groups (2000-2015)");
+				d3.csv("data/TerrOrg.csv", function (error, data) {
+					if(error) throw error;
+
+					Trans = []
+			    data.forEach(function(d) {
+			       d.Y2010 = +d.Y2010;
+			       d.Y2011 = +d.Y2011;
+			       d.Y2012 = +d.Y2012;
+						 d.Y2013 = +d.Y2013;
+						 d.Y2014 = +d.Y2014;
+						 d.Y2015 = +d.Y2015;
+						 d.Sum = +d.Sum;
+						 Trans.push([{"Year":2010, "value":d.Y2010},{"Year":2011, "value":d.Y2011},{"Year":2012, "value":d.Y2012}
+					 ,{"Year":2013, "value":d.Y2013},{"Year":2014, "value":d.Y2014},{"Year":2015, "value":d.Y2015}]);
+						 //console.log(i);
+			     });
+
+					//  var Trans = d3.nest().key(function(d) { console.log(d);return d.Y2010; })
+					//      .rollup(function(d) { console.log(d); return d.Y2011; })
+	        //      .entries(data);
+
+					 console.log(data[0]);
+					 console.log(Trans);
+					 //console.log(data[0].Y2010);
+					 //console.log(d3.max(data, function(i){return d3.max([i.Y2010,i.Y2011,i.Y2012,i.Y2013,i.Y2014,i.Y2015])}));
+
+		 			var color = d3.scale.ordinal()
+		 				.range(["#080808","#FF0000","#FFBBFF","#EE00EE", "#DAA520"]);
+
+		 			var radarChartOptions = {
+		 			  w: width,
+		 			  h: height,
+		 			  margin: margin,
+		 			  maxValue: 0.5,
+		 			  levels: 5,
+		 			  roundStrokes: true,
+		 			  color: color
+		 			};
+		 			//Call function to draw the Radar chart
+		 			RadarChart(".radarChart", Trans, radarChartOptions);
+
+				});
+			}
+
+			function showDamageValue() {
+				d3.csv("TerrDamageValue.csv", function (error, data) {
+					if(error) throw error;
+
+					TransDV = []
+			    data.forEach(function(d) {
+						d.Y1990 = +d.Y1990; d.Y1991 = +d.Y1991; d.Y1992 = +d.Y1992; d.Y1994 = +d.Y1994; d.Y1995 = +d.Y1995;
+						d.Y1996 = +d.Y1996; d.Y1997 = +d.Y1997; d.Y1998 = +d.Y1998; d.Y1999 = +d.Y1999; d.Y2000 = +d.Y2000; d.Y2001 = +d.Y2001;
+						d.Y2002 = +d.Y2002; d.Y2003 = +d.Y2003; d.Y2004 = +d.Y2004; d.Y2005 = +d.Y2005; d.Y2006 = +d.Y2006; d.Y2007 = +d.Y2007;
+						d.Y2008 = +d.Y2008; d.Y2009 = +d.Y2009;
+						d.Y2010 = +d.Y2010; d.Y2011 = +d.Y2011; d.Y2012 = +d.Y2012; d.Y2013 = +d.Y2013; d.Y2014 = +d.Y2014; d.Y2015 = +d.Y2015;
+
+						 TransDV.push([{"Year":1990, "value":d.Y1990},{"Year":1991, "value":d.Y1991},{"Year":1992, "value":d.Y1992},
+						 {"Year":1994, "value":d.Y1994},{"Year":1995, "value":d.Y1995},{"Year":1996, "value":d.Y1996},
+						 {"Year":1997, "value":d.Y1997},{"Year":1998, "value":d.Y1998},{"Year":1999, "value":d.Y1999},
+						 {"Year":2000, "value":d.Y2000},{"Year":2001, "value":d.Y2001},{"Year":2002, "value":d.Y2002},
+						 {"Year":2003, "value":d.Y2003},{"Year":2004, "value":d.Y2004},{"Year":2005, "value":d.Y2005},
+						 {"Year":2006, "value":d.Y2006},{"Year":2007, "value":d.Y2007},{"Year":2008, "value":d.Y2008},
+						 {"Year":2009, "value":d.Y2009},{"Year":2010, "value":d.Y2010},{"Year":2011, "value":d.Y2011},
+						 {"Year":2012, "value":d.Y2012},{"Year":2013, "value":d.Y2013},{"Year":2014, "value":d.Y2014},
+						 {"Year":2015, "value":d.Y2015}]);
+						 //console.log(i);
+			     });
+
+					//  var Trans = d3.nest().key(function(d) { console.log(d);return d.Y2010; })
+					//      .rollup(function(d) { console.log(d); return d.Y2011; })
+	        //      .entries(data);
+
+					 console.log(data[0]);
+					 console.log(TransDV);
+					 //console.log(data[0].Y2010);
+					 //console.log(d3.max(data, function(i){return d3.max([i.Y2010,i.Y2011,i.Y2012,i.Y2013,i.Y2014,i.Y2015])}));
+
+		 			var color = d3.scale.ordinal()
+		 				.range(["#FF0000"]);
+
+		 			var radarChartOptions = {
+		 			  w: width,
+		 			  h: height,
+		 			  margin: margin,
+		 			  maxValue: 0.5,
+		 			  levels: 5,
+		 			  roundStrokes: true,
+		 			  color: color
+		 			};
+		 			//Call function to draw the Radar chart
+		 			RadarChartDV(".radarChart", TransDV, radarChartOptions);
+
+				});
+			}
+
+		</script>
+		</div>
+		</div>
+		<hr>
+
+	<div class="row">
+		<div class="col-sm-12">
+			<img src="img/4.jpg" style="width:1000px">
+		</div>
+	</div>
+	<hr>
+	<div class="row">
+		<div class="col-sm-12">
+			<!--<div class="card">-->
+			<img src="img/3.jpg" style="width:600px">
+			<!--</div>-->
+		</div>
+
+	</div>
+	<hr>
+	<div class="row">
+		<div class="col-sm-12">
+			<img src="img/1.jpg" style="width:600px">
+			<!--<div class="card">-->
+
+			<!--</div>-->
+		</div>
+	</div>
+	</body>
+</html>
